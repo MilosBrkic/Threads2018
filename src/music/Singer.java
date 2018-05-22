@@ -41,13 +41,19 @@ public class Singer extends Thread {
     
     private synchronized void sing() {
         while (!stopIt) {
-            if (this.voice == Voice.FIRST) {
-                this.synch.singFirstVoice(performance.getLyrics(), performance.getDelay());
-            } else {
-                this.synch.singSecondVoice(performance.getLyrics(), performance.getDelay());
-            }
+
+            if (this.voice == Voice.FIRST)
+            	this.synch.singFirstVoice(performance.getLyrics(), performance.getDelay(), singerName);
+            
+            if(this.voice == Voice.SECOND)
+            	this.synch.singSecondVoice(performance.getLyrics(), performance.getDelay(), singerName);
+            
+            if(this.voice == Voice.BACKGROUND)
+            	this.synch.singBackgroundVoice(performance.getLyrics(), performance.getDelay(), singerName);
+            
         }
     }
+    
     
     public String getSingerName() {
         return singerName;
@@ -70,6 +76,7 @@ public class Singer extends Thread {
     public boolean isStopIt() {
         return stopIt;
     }
+       
     public void setStopIt(boolean stopIt) {
         this.stopIt = stopIt;
     }
